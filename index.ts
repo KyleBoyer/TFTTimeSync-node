@@ -3,13 +3,13 @@ import * as HID from 'node-hid';
 const VENDOR_ID = 0x0C45;
 const PRODUCT_ID = 0x8009;
 
-const getDevice = async () => {
+const getDevice = () => {
     const devices = HID.devices(VENDOR_ID, PRODUCT_ID);
     if (!devices.length) {
         throw new Error("Device not found!");
     }
     const deviceInfo = devices.find(d => d.usage == 1 && d.usagePage == 65299 && d.interface == 3) as HID.Device;
-    if(!deviceInfo.path){
+    if(!deviceInfo?.path){
       throw new Error('Device has no connection path!')
     }
     return new HID.HID(deviceInfo.path)
@@ -66,8 +66,8 @@ const sendPacket4 = (device: HID.HID) => {
     device.getFeatureReport(0x00, 65);
 }
 
-const main = async () => {
-    const device = await getDevice();
+const main = () => {
+    const device = getDevice();
     console.log(`Found device! Updating time...`);
     sendPacket1(device);
     sendPacket2(device);
