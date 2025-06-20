@@ -2,9 +2,9 @@
   "name": "tfttimesync-node",
   "version": "1.0.0",
   "description": "A Node.js utility to sync the time on the TFT display of Ajazz AK35i V3 MAX keyboards and compatible models via USB HID.",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "keywords": [
     "ajazz",
