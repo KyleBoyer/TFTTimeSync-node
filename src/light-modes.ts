@@ -23,3 +23,4 @@ export const LightingModes = {
 } as const;
 
 export type LightingMode = typeof LightingModes[keyof typeof LightingModes]
+export type LightingModeName = keyof typeof LightingModes;

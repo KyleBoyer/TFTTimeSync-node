@@ -18,6 +18,7 @@
   ],
   "author": "Kyle Boyer",
   "dependencies": {
+    "commander": "^14.0.0",
     "node-hid": "^3.2.0"
   },
   "devDependencies": {

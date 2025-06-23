@@ -1,6 +1,7 @@
 import * as HID from 'node-hid';
-import { DEBUG_LOGS, PRODUCT_ID, REPORT_ID, USB_PROCESSING_TIME_MS, VENDOR_ID } from './settings';
+import { debugLogsEnabled, getUSBProcessingTimeMS } from './settings';
 import { padLeft, sleep } from './utils';
+import { VENDOR_ID, PRODUCT_ID, REPORT_ID } from './constants';
 
 const devices = HID.devices(VENDOR_ID, PRODUCT_ID);
 if (!devices.length) {
@@ -20,21 +21,21 @@ const appendReportIDToFeatureReportBuffer = (buf: Buffer) => {
 }
 
 export const sendFeatureReport = async (report: Buffer) => {
-    if(DEBUG_LOGS){
+    if(debugLogsEnabled()){
         const hexArr = [...report].map(n => padLeft(n.toString(16)));
         console.debug(`Sending feature report:`, hexArr.join(' '))
     }
     const reportWithReportID = appendReportIDToFeatureReportBuffer(report);
     device.sendFeatureReport(reportWithReportID);
-    await sleep(USB_PROCESSING_TIME_MS)
+    await sleep(getUSBProcessingTimeMS())
 }
 
 export const getFeatureReport = async () => {
     const report = device.getFeatureReport(REPORT_ID, 65);
-    if(DEBUG_LOGS){
+    if(debugLogsEnabled()){
         const hexArr = [...report].map(n => padLeft(n.toString(16)));
         console.debug(`Retrieved feature report:`, hexArr.join(' '))
     }
-    await sleep(USB_PROCESSING_TIME_MS);
+    await sleep(getUSBProcessingTimeMS());
     return report;
 }
