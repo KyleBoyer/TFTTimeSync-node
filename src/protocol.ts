@@ -7,7 +7,7 @@ if (!devices.length) {
     throw new Error("Device not found!");
 }
 const deviceInfo = devices.find(d => d.usage == 1 && d.usagePage == 65299 && d.interface == 3) as HID.Device;
-if(!deviceInfo.path){
+if(!deviceInfo?.path){
     throw new Error('Device has no connection path!')
 }
 const device = new HID.HID(deviceInfo.path);
