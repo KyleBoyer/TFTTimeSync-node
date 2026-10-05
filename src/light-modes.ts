@@ -1,4 +1,3 @@
-
 export const LightingModes = {
     'OFF': 0x00,
     'Static': 0x01,
