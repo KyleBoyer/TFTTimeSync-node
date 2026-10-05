@@ -30,7 +30,8 @@ export const getConfigureLightingModePacket = () => {
 
 export const getUpdateTimePacket = () => {
     const now = new Date();
-    let buf = Buffer.alloc(64);
+    const buf = Buffer.alloc(64);
+
     buf[0] = 0x00;
     buf[1] = 0x01;
     buf[2] = 0x5a;
@@ -42,10 +43,12 @@ export const getUpdateTimePacket = () => {
     buf[8] = now.getSeconds();
     buf[9] = 0x00;
     buf[10] = 0x04;
+
     buf[62] = 0xaa;
     buf[63] = 0x55;
+
     return buf;
-}
+};
 
 export const getUpdateLightingModePacket = (lightingMode: LightingMode) => {
     let buf = Buffer.alloc(64);
